@@ -68,17 +68,28 @@ func (p *Mission) New() *Mission {
 	c := NewMission()
 	c.p = p
 
-	go c.chain_cancel()
+	p.Link(c)
 	return c
 }
 
-func (m *Mission) chain_cancel() {
-	select {
-	case <-m.cancel:
-	case <-m.p.done:
-	case <-m.p.cancel:
-		m.Cancel()
+func (p *Mission) NewCancel() Canceller {
+	if p == nil {
+		panic("nil mission")
 	}
+	cc := NewCancel()
+	p.Link(cc)
+	return cc
+}
+
+func (m *Mission) Link(cc Canceller) {
+	go func() {
+		select {
+		case <-cc.RecvCancel():
+		case <-m.done:
+		case <-m.cancel:
+			cc.Cancel()
+		}
+	}()
 }
 
 func (m *Mission) Activate() {
@@ -113,16 +124,6 @@ func (m *Mission) Abort() {
 		top = top.p
 	}
 	top.Cancel()
-}
-
-func (m *Mission) IsCanceled() bool {
-	select {
-	case <-m.cancel:
-		return true
-	default:
-	}
-
-	return false
 }
 
 func (m *Mission) RecvCancel() <-chan struct{} {
