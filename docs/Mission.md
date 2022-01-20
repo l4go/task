@@ -50,6 +50,15 @@ New()メソッドで、子供の\*Missionを生成できます。
 ### func (p \*Mission) New() \*Mission
 小タスク管理用のMissionを生成します。
 
+### func (p \*Mission) NewCancel() Canceller
+サブタスク管理用の\*Cancelを生成します。
+
+生成された\*Cancelは、\*Mission側のCancel処理に連動する状態になっています。
+\*Cancel側のCancel処理は、Mission側へ連動させていないので、サブタスクの影響を受けません。
+
+### func (p \*Mission) Link(Canceller)
+\*MissionのCancel処理をCancellerへ連動させます。
+
 ### func (m \*Mission) Done()
 子のMission終了通知を有効にし、子のMissionの終了を待ってから、自分のMissionを終了させます。
 

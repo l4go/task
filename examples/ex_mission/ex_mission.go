@@ -32,10 +32,8 @@ func main() {
 
 	time.AfterFunc(10*time.Second, m.Cancel)
 
-	w := WORKERS
-	for w > 0 {
-		go worker(m.New())
-		w--
+	for w := 0; w < WORKERS; w++ {
+		go worker(m.New(), w)
 	}
 
 	select {
@@ -45,36 +43,55 @@ func main() {
 	}
 }
 
-func worker(m *task.Mission) {
-	log.Println("worker START")
-	defer log.Println("worker END")
+func worker(m *task.Mission, w int) {
+	log.Println("worker", w, "START")
+	defer log.Println("worker", w, "END")
 	defer m.Done()
 
-	var w int = SUBWORKERS
-	for w > 0 {
-		if m.IsCanceled() {
+	for sw := 0; sw < SUBWORKERS; sw++ {
+		if task.IsCanceled(m) {
 			return
 		}
-		go subworker(m.New(), w)
-		w--
+		go subworker(m.New(), w, sw)
 	}
 }
 
-func subworker(m *task.Mission, work_time int) {
-	log.Println("subworker START")
-	defer log.Println("subworker END")
+func subworker(m *task.Mission, w int, sw int) {
+	log.Println("subworker", w, sw, "START")
+	defer log.Println("subworker", w, sw, "END")
 	defer m.Done()
 
-	if m.IsCanceled() {
+	work_time := time.Duration(w) * time.Second
+
+	if task.IsCanceled(m) {
 		return
 	}
 
-	wk := timer.NewTimer()
-	defer wk.Stop()
-	wk.Start(time.Duration(work_time) * time.Second)
+	wt := timer.NewTimer()
+	defer wt.Stop()
+	wt.Start(work_time)
+
+	job(m.NewCancel(), w, sw)
 
 	select {
-	case <-wk.Recv():
+	case <-wt.Recv():
 	case <-m.RecvCancel():
+	}
+}
+
+func job(cc task.Canceller, w int, sw int) {
+	log.Println("job", w, sw, "START")
+	defer log.Println("job", w, sw, "END")
+	defer cc.Cancel()
+
+	job_time := time.Duration(w) * time.Second / 2
+
+	tt := timer.NewTimer()
+	defer tt.Stop()
+	tt.Start(job_time)
+
+	select {
+	case <-tt.Recv():
+	case <-cc.RecvCancel():
 	}
 }

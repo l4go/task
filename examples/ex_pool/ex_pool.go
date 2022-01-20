@@ -57,7 +57,7 @@ func must_work(m *task.Mission, args ...interface{}) {
 
 	s := args[0].(string)
 	i := args[1].(int)
-	if m.IsCanceled() {
+	if task.IsCanceled(m) {
 		log.Println("work", s, i, "canceled")
 		return
 	}
