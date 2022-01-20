@@ -138,7 +138,7 @@ func (m *Mission) Recv() <-chan struct{} {
 	return m.RecvDone()
 }
 
-func (m *Mission) AsContext() *MissionContext {
+func (m *Mission) AsContext() context.Context {
 	return (*MissionContext)(m)
 }
 
