@@ -16,3 +16,9 @@ func IsCanceled(cc Canceller) bool {
 	}
 	return false
 }
+
+type Finisher interface {
+	Done()
+	RecvDone() <-chan struct{}
+	AsContext() context.Context
+}
