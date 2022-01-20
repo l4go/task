@@ -96,7 +96,7 @@ Activate()メソッド、Done()メソッド、Recv()メソッドのどれかが�
 
 Recv()メソッドやDone()メソッドを実行する前に、通知を開始したい場合に利用します。
 
-### func (m \*Mission) AsContext() \*Context
+### func (m \*Mission) AsContext() \*context.Context
 Missionをgo標準のcontext\.Contextインタフェース互換形式に変換します。
 
 go標準の関数と連携するために使います。
