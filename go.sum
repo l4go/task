@@ -1,0 +1,4 @@
+github.com/l4go/task v0.0.0-20220120091252-00b14e58ff7b h1:xDgDdoOzXrOz7hof+6i3UAQ/k7uX3BCT2UWWSPBpeY4=
+github.com/l4go/task v0.0.0-20220120091252-00b14e58ff7b/go.mod h1:Y+HtqqbG8xHIirohEByVHb+RNbhKJqCuwGEvFtb/m0E=
+github.com/l4go/timer v0.0.0-20220120095019-e6646286833b h1:I2BR+h1YYcQgivla2BkupS8uAYwCfQb4HEUrC6D8G14=
+github.com/l4go/timer v0.0.0-20220120095019-e6646286833b/go.mod h1:Uk5w/ITwWaKzi8M6+1VG0nUvYCLMtIOSJuiALCbMzXI=
