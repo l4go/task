@@ -1,5 +1,5 @@
 # type Finish
-任意のgoroutineから、任意の1つ以上のgoroutineの完了を行うためのモジュールです。
+任意のgoroutineから、任意の1つ以上のgoroutineの完了を行うためのモジュールです。  
 Missionの軽量版で、完了通知に特化した機能のみを有します。  
 Doneを持たせたgoroutine全てに対して、どこかのgoroutineから一度に完了を通知することができます。  
 
