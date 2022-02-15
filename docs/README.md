@@ -1,13 +1,13 @@
-# golib/task ライブラリ
+# l4go/task ライブラリ
 
 goroutineの処理(task)の管理を支援するモジュール群です。
 
 * [task.Mission](Mission.md)
     * 親子関係のあるgoroutine群の完了管理を、簡素かつ柔軟に行うためのモジュールです。
 * [task.Cancel](Cancel.md)
-    * 1つのgoroutineから、複数のgoroutineのキャンセルを行うためのモジュールです。
+    * 任意のgoroutineから、任意の1つ以上のgoroutineのキャンセルを行うためのモジュールです。
 * [task.Finish](Finish.md)
-    * 1つのgoroutineから、複数のgoroutineの完了を行うためのモジュールです。
+    * 任意のgoroutineから、任意の1つ以上のgoroutineの完了を行うためのモジュールです。
 * [task.Pool](Pool.md)
     * goroutine pool(thread poolのgoroutine版)を実装するモジュールです。
   

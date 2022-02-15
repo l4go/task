@@ -1,5 +1,5 @@
 # type Cancel
-特定のgorotineから、全部のgoroutineをキャンセルするためのモジュールです。  
+任意のgoroutineから、任意の1つ以上のgoroutineのキャンセルを行うためのモジュールです。
 Missionの軽量版で、キャンセルに特化した機能のみを有します。  
 Cancelを持たせたgoroutine全てに対して、どこかのgoroutineに一度にキャンセルすることができます。
 
